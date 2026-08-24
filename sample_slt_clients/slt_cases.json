@@ -1,0 +1,420 @@
+{
+  "schema_version": "0.1.0",
+  "cases": [
+    {
+      "case_id": "SLT-001",
+      "title": "Supported conversation after stroke",
+      "synthetic_data_notice": "Entirely fictional training case",
+      "field": "speech and language therapy",
+      "setting": "community rehabilitation clinic",
+      "complexity": "introductory",
+      "estimated_duration_minutes": 15,
+      "client": {
+        "display_name": "Sam Taylor",
+        "age_group": "adult",
+        "pronouns": "they/them",
+        "preferred_address": "Sam",
+        "communication_profile": [
+          "Has an educator-authored diagnosis of aphasia following a fictional stroke",
+          "Understands short everyday questions more reliably than long questions",
+          "Uses gesture, drawing, writing and a low-tech communication board"
+        ],
+        "preferences": ["Allow extra response time", "Verify meaning without pretending to understand"]
+      },
+      "learning": {
+        "outcomes": [
+          "Reduce communication pressure and establish an accessible interaction",
+          "Use more than one modality to support expression",
+          "Check the reliability of yes/no responses using authored material",
+          "Summarise and verify the client's intended meaning"
+        ],
+        "indicative_domains": ["Communication access", "Person-centred practice", "Collaborative goal setting"]
+      },
+      "scenario": {
+        "presenting_context": "First fictional community appointment to identify a personally meaningful communication priority.",
+        "visible_at_start": [
+          "Sam has a communication board and notepad within reach",
+          "Sam begins a sentence, pauses and gestures towards the window",
+          "A family member is waiting outside and has not been invited into the session"
+        ]
+      },
+      "initial_state": {
+        "elapsed_minutes": 0,
+        "access_checked": false,
+        "pressure_reduced": false,
+        "yes_no_checked": false,
+        "modalities_offered": false,
+        "priority_identified": false,
+        "meaning_verified": false,
+        "next_step_agreed": false,
+        "rapport": 4,
+        "participation": 3,
+        "communication_load": 7,
+        "revealed_cues": []
+      },
+      "time_events": [
+        {
+          "event_id": "communication_fatigue",
+          "at_minute": 8,
+          "when": {"pressure_reduced": false},
+          "effects": {"communication_load_delta": 2, "participation_delta": -1},
+          "visible_cue": "Sam looks away, rubs their forehead and gives shorter responses."
+        }
+      ],
+      "allowed_actions": [
+        {
+          "action_id": "introduce_and_confirm_access",
+          "label": "Introduce yourself and check how Sam prefers to communicate",
+          "preconditions": {},
+          "effects": {"access_checked": true, "rapport_delta": 1},
+          "reveals": ["Sam points to the communication board and asks for extra time"]
+        },
+        {
+          "action_id": "reduce_communication_pressure",
+          "label": "Use one idea at a time, pause and allow unhurried response time",
+          "preconditions": {"access_checked": true},
+          "effects": {"pressure_reduced": true, "communication_load_delta": -3, "participation_delta": 1},
+          "reveals": [],
+          "blocked_message": "First ask Sam what communication support is useful."
+        },
+        {
+          "action_id": "establish_yes_no_reliability",
+          "label": "Use educator-authored check questions to establish yes/no reliability",
+          "preconditions": {"pressure_reduced": true},
+          "effects": {"yes_no_checked": true},
+          "reveals": ["Sam responds consistently to the authored verification questions"],
+          "blocked_message": "Reduce communication pressure before using the check questions."
+        },
+        {
+          "action_id": "offer_supported_modalities",
+          "label": "Offer gesture, drawing, writing and the communication board",
+          "preconditions": {"access_checked": true},
+          "effects": {"modalities_offered": true, "participation_delta": 2},
+          "reveals": ["Sam combines pointing, gesture and the written first letter 'g'"]
+        },
+        {
+          "action_id": "explore_priority",
+          "label": "Explore one communication priority using supported conversation",
+          "preconditions": {"modalities_offered": true, "pressure_reduced": true},
+          "effects": {"priority_identified": true, "rapport_delta": 2},
+          "reveals": ["Sam wants to talk with their daughter about gardening"],
+          "blocked_message": "Sam needs accessible modalities and enough response time first."
+        },
+        {
+          "action_id": "summarise_and_verify",
+          "label": "Summarise the message using key words and verify it with Sam",
+          "preconditions": {"priority_identified": true, "yes_no_checked": true},
+          "effects": {"meaning_verified": true},
+          "reveals": ["Sam confirms the summary using speech, gesture and pointing"],
+          "blocked_message": "Identify the priority and establish a reliable verification method first."
+        },
+        {
+          "action_id": "agree_next_step",
+          "label": "Agree an authored next step and check Sam's preference about family involvement",
+          "preconditions": {"meaning_verified": true},
+          "effects": {"next_step_agreed": true},
+          "reveals": ["Sam wants their daughter involved in a later goal-setting conversation"],
+          "blocked_message": "Verify Sam's intended meaning before agreeing the next step."
+        }
+      ],
+      "facilitator_only": {
+        "opening_brief": "The learner is asked to establish a personally meaningful communication priority with Sam.",
+        "expected_points": [
+          "Aphasia is not treated as lack of competence",
+          "The learner acknowledges communication breakdown honestly",
+          "Sam controls whether a family member becomes involved"
+        ],
+        "pause_triggers": ["Learner repeatedly answers for Sam or assumes family consent"]
+      },
+      "debrief": {
+        "prompts": [
+          "Which changes reduced communication pressure?",
+          "How did you verify meaning without relying on speech alone?",
+          "How did Sam retain control of the interaction?"
+        ],
+        "automatic_competence_decision": false
+      },
+      "safety_contract": {
+        "must_not_generate": ["New diagnoses", "Assessment scores", "Treatment recommendations", "Consent", "Competence judgements"]
+      }
+    },
+    {
+      "case_id": "SLT-002",
+      "title": "Reported swallowing difficulty and safe escalation",
+      "synthetic_data_notice": "Entirely fictional training case",
+      "field": "speech and language therapy",
+      "setting": "inpatient rehabilitation unit",
+      "complexity": "intermediate",
+      "estimated_duration_minutes": 15,
+      "client": {
+        "display_name": "Jordan Ellis",
+        "age_group": "adult",
+        "pronouns": "he/him",
+        "preferred_address": "Jordan",
+        "communication_profile": ["Speaks in full sentences", "Wants explanations before any change to routine"],
+        "preferences": ["Wants concerns discussed directly", "Does not want relatives contacted without permission"]
+      },
+      "learning": {
+        "outcomes": [
+          "Gather a concise account of an educator-authored swallowing concern",
+          "Recognise limits of a student interaction and avoid unsupported recommendations",
+          "Take the authored immediate safety action and escalate to supervision",
+          "Use teach-back to check understanding of the supported plan"
+        ],
+        "indicative_domains": ["Dysphagia safety", "Scope of practice", "Escalation and handover"]
+      },
+      "scenario": {
+        "presenting_context": "Jordan reports coughing with drinks before a planned fictional therapy activity.",
+        "visible_at_start": [
+          "An untouched drink is on the table",
+          "Jordan is seated upright and comfortable at rest",
+          "The learner has not been authorised to conduct an oral trial in this scenario"
+        ]
+      },
+      "initial_state": {
+        "elapsed_minutes": 0,
+        "permission_obtained": false,
+        "difficulty_clarified": false,
+        "wellbeing_checked": false,
+        "scope_explained": false,
+        "oral_intake_paused": false,
+        "supervisor_contacted": false,
+        "plan_understood": false,
+        "handover_completed": false,
+        "rapport": 4,
+        "participation": 5,
+        "communication_load": 3,
+        "revealed_cues": []
+      },
+      "time_events": [
+        {
+          "event_id": "reaches_for_drink",
+          "at_minute": 6,
+          "when": {"oral_intake_paused": false},
+          "effects": {},
+          "visible_cue": "Jordan reaches towards the drink and asks whether it is all right to continue."
+        }
+      ],
+      "allowed_actions": [
+        {
+          "action_id": "introduce_and_seek_permission",
+          "label": "Introduce your student role and seek permission to discuss the concern",
+          "preconditions": {},
+          "effects": {"permission_obtained": true, "rapport_delta": 1},
+          "reveals": []
+        },
+        {
+          "action_id": "clarify_reported_difficulty",
+          "label": "Ask when the difficulty occurs and what Jordan notices",
+          "preconditions": {"permission_obtained": true},
+          "effects": {"difficulty_clarified": true},
+          "reveals": ["Jordan reports coughing with drinks and a wet-sounding voice afterwards"],
+          "blocked_message": "Seek permission before gathering the account."
+        },
+        {
+          "action_id": "check_immediate_wellbeing",
+          "label": "Check Jordan's immediate wellbeing using the authored scenario cues",
+          "preconditions": {"permission_obtained": true},
+          "effects": {"wellbeing_checked": true},
+          "reveals": ["Jordan remains comfortable at rest in this authored scenario"]
+        },
+        {
+          "action_id": "explain_scope_and_uncertainty",
+          "label": "Explain that assessment and supervision are needed before recommendations",
+          "preconditions": {"difficulty_clarified": true},
+          "effects": {"scope_explained": true, "rapport_delta": 1},
+          "reveals": []
+        },
+        {
+          "action_id": "pause_oral_intake_and_escalate",
+          "label": "Follow the authored safety instruction: pause oral intake and contact the supervisor",
+          "preconditions": {"difficulty_clarified": true, "wellbeing_checked": true},
+          "effects": {"oral_intake_paused": true, "supervisor_contacted": true},
+          "reveals": ["The supervising clinician acknowledges the escalation"],
+          "blocked_message": "Clarify the report and check immediate wellbeing before the authored escalation."
+        },
+        {
+          "action_id": "communicate_supported_plan",
+          "label": "Explain the educator-authored interim plan and use teach-back",
+          "preconditions": {"supervisor_contacted": true, "scope_explained": true},
+          "effects": {"plan_understood": true},
+          "reveals": ["Jordan accurately explains the authored interim plan"],
+          "blocked_message": "Contact the supervisor and explain the limits of the student role first."
+        },
+        {
+          "action_id": "document_and_handover",
+          "label": "Give a concise factual handover using only revealed information",
+          "preconditions": {"supervisor_contacted": true, "plan_understood": true},
+          "effects": {"handover_completed": true},
+          "reveals": [],
+          "blocked_message": "Ensure Jordan understands the immediate plan before completing handover."
+        }
+      ],
+      "facilitator_only": {
+        "opening_brief": "The learner must respond to a new reported swallowing concern without conducting an oral trial.",
+        "expected_points": [
+          "No oral trial is performed in the prototype",
+          "The learner stays within the stated student role",
+          "Escalation is factual and does not invent a diagnosis"
+        ],
+        "pause_triggers": ["Learner attempts an oral trial or invents a food/fluid recommendation"]
+      },
+      "debrief": {
+        "prompts": [
+          "Which information made escalation necessary in this authored case?",
+          "How did you communicate uncertainty without alarming Jordan?",
+          "What belonged in the factual handover?"
+        ],
+        "automatic_competence_decision": false
+      },
+      "safety_contract": {
+        "must_not_generate": ["New diagnoses", "Food or fluid recommendations", "Assessment scores", "Treatment advice", "Competence judgements"]
+      }
+    },
+    {
+      "case_id": "SLT-003",
+      "title": "Child-centred language assessment conversation",
+      "synthetic_data_notice": "Entirely fictional training case",
+      "field": "speech and language therapy",
+      "setting": "school clinic room",
+      "complexity": "introductory",
+      "estimated_duration_minutes": 15,
+      "client": {
+        "display_name": "Leah Brooks",
+        "age_group": "school-age child",
+        "pronouns": "she/her",
+        "preferred_address": "Leah",
+        "communication_profile": [
+          "Uses short spoken sentences in an unfamiliar setting",
+          "Benefits from one instruction at a time and visual choices",
+          "Her mother is present, but Leah should be addressed directly"
+        ],
+        "preferences": ["Likes drawing", "Wants warning before changing activity", "May request a movement break"]
+      },
+      "learning": {
+        "outcomes": [
+          "Explain the session accessibly and establish assent within the authored scenario",
+          "Balance the child's and parent's perspectives",
+          "Use child-led observation and processing support",
+          "Summarise observations without making a diagnosis"
+        ],
+        "indicative_domains": ["Child-centred practice", "Family partnership", "Accessible assessment"]
+      },
+      "scenario": {
+        "presenting_context": "Leah and her mother attend a fictional first appointment about classroom communication.",
+        "visible_at_start": [
+          "Drawing materials and a simple visual session plan are available",
+          "Leah's mother begins to answer the first question",
+          "Leah watches the learner and holds a blue pencil"
+        ]
+      },
+      "initial_state": {
+        "elapsed_minutes": 0,
+        "parent_permission": false,
+        "child_assent": false,
+        "session_explained": false,
+        "child_observed": false,
+        "parent_view_gathered": false,
+        "child_view_gathered": false,
+        "processing_support_used": false,
+        "summary_verified": false,
+        "next_step_agreed": false,
+        "rapport": 3,
+        "participation": 3,
+        "communication_load": 5,
+        "revealed_cues": []
+      },
+      "time_events": [
+        {
+          "event_id": "needs_break",
+          "at_minute": 9,
+          "when": {"processing_support_used": false},
+          "effects": {"communication_load_delta": 2, "participation_delta": -1},
+          "visible_cue": "Leah stops drawing, shifts in her chair and looks towards the visual session plan."
+        }
+      ],
+      "allowed_actions": [
+        {
+          "action_id": "welcome_child_and_parent",
+          "label": "Welcome Leah and her mother; establish permission and Leah's assent",
+          "preconditions": {},
+          "effects": {"parent_permission": true, "child_assent": true, "rapport_delta": 1},
+          "reveals": ["Leah chooses to begin with drawing"]
+        },
+        {
+          "action_id": "explain_session_accessibly",
+          "label": "Use the visual plan to explain the session and right to ask for a break",
+          "preconditions": {"child_assent": true},
+          "effects": {"session_explained": true, "communication_load_delta": -1},
+          "reveals": []
+        },
+        {
+          "action_id": "observe_child_led_interaction",
+          "label": "Join Leah's drawing activity and observe communication without testing",
+          "preconditions": {"session_explained": true},
+          "effects": {"child_observed": true, "participation_delta": 2},
+          "reveals": ["Leah uses longer descriptions when the interaction is unhurried"],
+          "blocked_message": "Explain the session accessibly before beginning the activity."
+        },
+        {
+          "action_id": "gather_parent_perspective",
+          "label": "Ask Leah's mother for specific examples while keeping Leah included",
+          "preconditions": {"parent_permission": true},
+          "effects": {"parent_view_gathered": true},
+          "reveals": ["Busy group work and multi-step instructions are reported as difficult"]
+        },
+        {
+          "action_id": "check_child_perspective",
+          "label": "Ask Leah what feels easy or difficult using visual choices",
+          "preconditions": {"child_observed": true},
+          "effects": {"child_view_gathered": true, "rapport_delta": 2},
+          "reveals": ["Leah finds it hard to take a turn when classmates talk quickly"],
+          "blocked_message": "Build rapport through the child-led activity first."
+        },
+        {
+          "action_id": "offer_processing_support",
+          "label": "Use one instruction at a time, visual choices and planned pause time",
+          "preconditions": {"session_explained": true},
+          "effects": {"processing_support_used": true, "communication_load_delta": -2, "participation_delta": 1},
+          "reveals": ["Leah gives a fuller response with the adjusted presentation"]
+        },
+        {
+          "action_id": "summarise_without_diagnosis",
+          "label": "Summarise the observed and reported information without diagnosing",
+          "preconditions": {"parent_view_gathered": true, "child_view_gathered": true},
+          "effects": {"summary_verified": true},
+          "reveals": ["Leah and her mother confirm the summary"],
+          "blocked_message": "Include both Leah's and her mother's perspectives before summarising."
+        },
+        {
+          "action_id": "agree_collaborative_next_step",
+          "label": "Agree the educator-authored next step and offer Leah a choice",
+          "preconditions": {"summary_verified": true},
+          "effects": {"next_step_agreed": true},
+          "reveals": ["Leah chooses a movement break before the next activity"],
+          "blocked_message": "Verify the shared summary before agreeing the next step."
+        }
+      ],
+      "facilitator_only": {
+        "opening_brief": "The learner is asked to explore classroom communication with Leah and her mother.",
+        "expected_points": [
+          "Leah is addressed directly and her assent remains relevant",
+          "Parent report and child perspective are both valued",
+          "Observations are not presented as a diagnosis"
+        ],
+        "pause_triggers": ["Learner excludes Leah from the conversation or makes an unsupported diagnosis"]
+      },
+      "debrief": {
+        "prompts": [
+          "How did Leah influence the pace and structure of the session?",
+          "Where did the parent and child perspectives differ or complement one another?",
+          "How did you describe observations without over-interpreting them?"
+        ],
+        "automatic_competence_decision": false
+      },
+      "safety_contract": {
+        "must_not_generate": ["New diagnoses", "Standardised scores", "Treatment recommendations", "Consent or assent", "Competence judgements"]
+      }
+    }
+  ]
+}
