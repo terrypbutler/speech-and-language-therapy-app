@@ -1,2 +1,3 @@
 streamlit>=1.51,<2
-
+google-genai
+openai

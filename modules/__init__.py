@@ -1,1 +1,1 @@
-"""Speech and Language Therapy simulation prototype modules."""
+"""Speech and language therapy simulation modules."""

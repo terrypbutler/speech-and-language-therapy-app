@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/slt-simulation/client-case.schema.json",
+  "title": "Synthetic speech and language therapy simulation case collection",
+  "type": "object",
+  "required": ["schema_version", "cases"],
+  "properties": {
+    "schema_version": { "const": "0.2.0" },
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/case" }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "case": {
+      "type": "object",
+      "required": [
+        "case_id",
+        "scenario_version",
+        "publication_status",
+        "review",
+        "title",
+        "synthetic_data_notice",
+        "field",
+        "setting",
+        "patient",
+        "learning",
+        "prebrief",
+        "clinical",
+        "clinical_workspace",
+        "initial_state",
+        "time_events",
+        "allowed_actions",
+        "ai_contract",
+        "dialogue",
+        "facilitator_only",
+        "educator_rubric",
+        "debrief"
+      ],
+      "properties": {
+        "case_id": { "type": "string", "pattern": "^SLT-[0-9]{3}$" },
+        "scenario_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+        "publication_status": { "enum": ["development", "approved"] },
+        "review": { "type": "object" },
+        "title": { "type": "string", "minLength": 5 },
+        "synthetic_data_notice": { "const": "Entirely fictional training case" },
+        "field": { "enum": ["speech and language therapy"] },
+        "setting": { "type": "string" },
+        "complexity": { "enum": ["introductory", "intermediate"] },
+        "patient": { "type": "object" },
+        "learning": { "type": "object" },
+        "prebrief": { "$ref": "#/$defs/prebrief" },
+        "clinical": { "type": "object" },
+        "clinical_workspace": { "$ref": "#/$defs/clinicalWorkspace" },
+        "initial_state": { "type": "object" },
+        "time_events": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/timeEvent" }
+        },
+        "allowed_actions": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/action" }
+        },
+        "ai_contract": { "$ref": "#/$defs/aiContract" },
+        "dialogue": { "$ref": "#/$defs/dialogue" },
+        "facilitator_only": { "type": "object" },
+        "educator_rubric": {
+          "type": "array",
+          "minItems": 3,
+          "items": { "$ref": "#/$defs/rubricCriterion" }
+        },
+        "debrief": { "type": "object" }
+      },
+      "additionalProperties": false
+    },
+    "prebrief": {
+      "type": "object",
+      "required": ["role", "orientation", "resources", "limitations", "ground_rules"],
+      "properties": {
+        "role": { "type": "string", "minLength": 10 },
+        "orientation": { "type": "string", "minLength": 10 },
+        "resources": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "limitations": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "ground_rules": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "clinicalWorkspace": {
+      "type": "object",
+      "required": ["handover", "environment", "available_resources", "record_access"],
+      "properties": {
+        "handover": { "type": "string", "minLength": 10 },
+        "environment": { "type": "array", "items": { "type": "string" } },
+        "available_resources": { "type": "array", "items": { "type": "string" } },
+        "record_access": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["title", "state_key", "content"],
+            "properties": {
+              "title": { "type": "string" },
+              "state_key": { "type": "string" },
+              "content": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "rubricCriterion": {
+      "type": "object",
+      "required": ["criterion_id", "label", "guidance"],
+      "properties": {
+        "criterion_id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+        "label": { "type": "string", "minLength": 3 },
+        "guidance": { "type": "string", "minLength": 10 }
+      },
+      "additionalProperties": false
+    },
+    "timeEvent": {
+      "type": "object",
+      "required": ["event_id", "at_minute", "when", "effects", "visible_cue"],
+      "properties": {
+        "event_id": { "type": "string" },
+        "at_minute": { "type": "integer", "minimum": 0 },
+        "when": { "type": "object" },
+        "effects": { "type": "object" },
+        "visible_cue": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "action": {
+      "type": "object",
+      "required": ["action_id", "label", "preconditions", "effects", "reveals"],
+      "properties": {
+        "action_id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+        "label": { "type": "string" },
+        "preconditions": { "type": "object" },
+        "effects": { "type": "object" },
+        "reveals": { "type": "array", "items": { "type": "string" } },
+        "blocked_message": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "dialogue": {
+      "type": "object",
+      "required": ["opening_line", "action_responses", "action_phrases", "fallback_responses", "facts"],
+      "properties": {
+        "opening_line": { "type": "string", "minLength": 1 },
+        "action_responses": { "type": "object" },
+        "action_phrases": { "type": "object" },
+        "fallback_responses": {
+          "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }
+        },
+        "facts": { "type": "array" }
+      },
+      "additionalProperties": false
+    },
+    "aiContract": {
+      "type": "object",
+      "required": ["allowed_context", "allowed_state_keys", "may_generate", "must_not_generate"],
+      "properties": {
+        "allowed_context": { "type": "array", "items": { "type": "string" } },
+        "allowed_state_keys": { "type": "array", "items": { "type": "string" } },
+        "may_generate": { "type": "array", "items": { "type": "string" } },
+        "must_not_generate": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    }
+  }
+}

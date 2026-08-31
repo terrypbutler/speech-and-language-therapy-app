@@ -1,14 +1,14 @@
-# Fictional SLT client pack
+# Synthetic SLT client sample pack
 
-This pack supports the unofficial Plymouth Marjon Speech and Language Therapy
-concept prototype. Every client and event is fictional.
+The bundled `client_cases.json` library contains four entirely fictional development fixtures:
 
-| ID | Scenario | Main rehearsal focus |
+| Case | Focus | Primary learning |
 | --- | --- | --- |
-| `SLT-001` | Supported conversation after stroke | Multimodal communication, verification and client agency |
-| `SLT-002` | Reported swallowing difficulty | Scope, immediate authored safety response and escalation |
-| `SLT-003` | Child language conversation | Child assent, parent partnership and accessible assessment |
+| `SLT-001` | Supported conversation after stroke | Communication access, multimodal support, meaning verification and client-led goals |
+| `SLT-002` | Reported swallowing difficulty | Focused history, scope, immediate safety, escalation and teach-back |
+| `SLT-003` | Child-centred language conversation | Assent, child voice, family partnership and bounded interpretation |
+| `SLT-004` | Voice impact and shared goal setting | Participation impact, non-blaming exploration, uncertainty and collaborative goals |
 
-The cases are development fixtures, not clinical guidance or approved curricula.
-Run `py .\sample_slt_clients\validate_cases.py` from the repository root to
-perform the dependency-free safety checks.
+Run `py .\sample_slt_clients\validate_cases.py` to validate the library. Edit `build_cases.py` when regenerating these development fixtures.
+
+Before educational use, every case requires local SLT educator review, relevant specialist and lived-experience review, accessibility and inclusion review, simulation testing and information-governance approval.
