@@ -57,7 +57,7 @@ st.set_page_config(
     page_title="Speech and Language Therapy Simulation Studio",
     page_icon="💬",
     layout="wide",
-    initial_sidebar_state="collapsed",
+    initial_sidebar_state="expanded",
 )
 
 
@@ -148,6 +148,21 @@ def apply_styles() -> None:
           .mode-card { border:1px solid var(--line); border-radius:14px; padding:1rem; background:#f8fbfa; margin:.5rem 0 1rem; }
           .minute { color:var(--muted); font-size:.78rem; font-weight:600; text-transform:uppercase; }
           div[data-testid="stMetric"] { background:white; border:1px solid var(--line); padding:1rem; border-radius:14px; }
+          @media (max-width: 700px) {
+            [data-testid="stSidebar"][aria-expanded="true"] {
+              width: 190px !important;
+              min-width: 190px !important;
+            }
+            [data-testid="stSidebar"][aria-expanded="true"] ~ div [data-testid="stMain"] {
+              left: 190px !important;
+              width: calc(100% - 190px) !important;
+            }
+            [data-testid="stSidebarUserContent"] { padding-left:.75rem; padding-right:.75rem; }
+            [data-testid="stSidebar"] .stMarkdown { font-size:.9rem; }
+            [data-testid="stMainBlockContainer"] { padding-left:.75rem; padding-right:.75rem; }
+            .hero { padding:1.25rem; }
+            .hero h1 { font-size:1.9rem; }
+          }
         </style>
         """,
         unsafe_allow_html=True,
@@ -1845,25 +1860,22 @@ def render_about() -> None:
 
 
 apply_styles()
-
-PAGE_OPTIONS = [
-    "Home",
-    "Client library",
-    "Run simulation",
-    "Debrief",
-    "Scenario editor",
-    "Safety & scope",
-]
-page = st.selectbox(
-    "Navigate to",
-    PAGE_OPTIONS,
-    key="page_navigation",
-    help="Choose a Studio screen. This control remains visible on narrow displays.",
-)
-
 with st.sidebar:
     st.markdown("## 💬 SLT Simulation Studio")
     st.caption("Speech and language therapy · v0.3")
+    page = st.radio(
+        "Navigation",
+        [
+            "Home",
+            "Client library",
+            "Run simulation",
+            "Debrief",
+            "Scenario editor",
+            "Safety & scope",
+        ],
+        key="navigation_page",
+        label_visibility="collapsed",
+    )
     FACILITATOR_MODE = st.toggle(
         "Facilitator mode",
         value=False,
