@@ -57,7 +57,7 @@ st.set_page_config(
     page_title="Speech and Language Therapy Simulation Studio",
     page_icon="💬",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="collapsed",
 )
 
 
@@ -1845,21 +1845,25 @@ def render_about() -> None:
 
 
 apply_styles()
+
+PAGE_OPTIONS = [
+    "Home",
+    "Client library",
+    "Run simulation",
+    "Debrief",
+    "Scenario editor",
+    "Safety & scope",
+]
+page = st.selectbox(
+    "Navigate to",
+    PAGE_OPTIONS,
+    key="page_navigation",
+    help="Choose a Studio screen. This control remains visible on narrow displays.",
+)
+
 with st.sidebar:
     st.markdown("## 💬 SLT Simulation Studio")
     st.caption("Speech and language therapy · v0.3")
-    page = st.radio(
-        "Navigation",
-        [
-            "Home",
-            "Client library",
-            "Run simulation",
-            "Debrief",
-            "Scenario editor",
-            "Safety & scope",
-        ],
-        label_visibility="collapsed",
-    )
     FACILITATOR_MODE = st.toggle(
         "Facilitator mode",
         value=False,
