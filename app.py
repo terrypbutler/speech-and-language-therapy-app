@@ -148,21 +148,6 @@ def apply_styles() -> None:
           .mode-card { border:1px solid var(--line); border-radius:14px; padding:1rem; background:#f8fbfa; margin:.5rem 0 1rem; }
           .minute { color:var(--muted); font-size:.78rem; font-weight:600; text-transform:uppercase; }
           div[data-testid="stMetric"] { background:white; border:1px solid var(--line); padding:1rem; border-radius:14px; }
-          @media (max-width: 700px) {
-            [data-testid="stSidebar"][aria-expanded="true"] {
-              width: 190px !important;
-              min-width: 190px !important;
-            }
-            [data-testid="stSidebar"][aria-expanded="true"] ~ div [data-testid="stMain"] {
-              left: 190px !important;
-              width: calc(100% - 190px) !important;
-            }
-            [data-testid="stSidebarUserContent"] { padding-left:.75rem; padding-right:.75rem; }
-            [data-testid="stSidebar"] .stMarkdown { font-size:.9rem; }
-            [data-testid="stMainBlockContainer"] { padding-left:.75rem; padding-right:.75rem; }
-            .hero { padding:1.25rem; }
-            .hero h1 { font-size:1.9rem; }
-          }
         </style>
         """,
         unsafe_allow_html=True,
@@ -1863,19 +1848,28 @@ apply_styles()
 with st.sidebar:
     st.markdown("## 💬 SLT Simulation Studio")
     st.caption("Speech and language therapy · v0.3")
-    page = st.radio(
-        "Navigation",
-        [
-            "Home",
-            "Client library",
-            "Run simulation",
-            "Debrief",
-            "Scenario editor",
-            "Safety & scope",
-        ],
-        key="navigation_page",
-        label_visibility="collapsed",
-    )
+
+page = st.navigation(
+    [
+        st.Page(render_home, title="Home", url_path="home", default=True),
+        st.Page(render_library, title="Client library", url_path="clients"),
+        st.Page(
+            lambda: render_simulation(FACILITATOR_MODE),
+            title="Run simulation",
+            url_path="simulation",
+        ),
+        st.Page(
+            lambda: render_debrief(FACILITATOR_MODE),
+            title="Debrief",
+            url_path="debrief",
+        ),
+        st.Page(render_scenario_editor, title="Scenario editor", url_path="editor"),
+        st.Page(render_about, title="Safety & scope", url_path="safety"),
+    ],
+    position="sidebar",
+)
+
+with st.sidebar:
     FACILITATOR_MODE = st.toggle(
         "Facilitator mode",
         value=False,
@@ -1895,15 +1889,4 @@ with st.sidebar:
         st.warning(SCENARIO_SOURCE_NOTICE)
     st.caption("Entirely fictional training data. No real client records.")
 
-if page == "Home":
-    render_home()
-elif page == "Client library":
-    render_library()
-elif page == "Run simulation":
-    render_simulation(FACILITATOR_MODE)
-elif page == "Debrief":
-    render_debrief(FACILITATOR_MODE)
-elif page == "Scenario editor":
-    render_scenario_editor()
-else:
-    render_about()
+page.run()

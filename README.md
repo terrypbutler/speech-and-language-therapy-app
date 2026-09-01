@@ -7,9 +7,14 @@ It supports supervised, formative rehearsal with entirely fictional clients. Com
 ## Run locally
 
 ```powershell
-py -m pip install -r requirements.txt
-py -m streamlit run app.py
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\run_app.ps1
 ```
+
+The launcher uses the project's Python 3.10 virtual environment. The current
+Windows Python 3.14 runtime is not used because its file-watcher shutdown can
+terminate Streamlit during page navigation.
 
 The compatibility entry point `slt_app.py` also opens the current Studio.
 
